@@ -1,42 +1,73 @@
-import { useState } from 'react'
-import { FiSearch } from 'react-icons/fi'
-import './styles.css'
+// import da api de CEP
+import api from './services/api';
+
+// Import do uso de estados do React 
+import { useState } from 'react';
+
+// import do componente de busca de icones no react
+import { FiSearch } from "react-icons/fi";
+
+// import da folha de estilos
+import './styles.css';
 
 function App() {
 
-  const [input, setInput] = useState('')
+  // Declaração e trabalho da manipulação dos estados em React
+  const [input, setInput] = useState('');
+  const [cep, setCep] = useState({});
 
-  function handleSearch() {
-    if(input === ''){
-      alert("Preencha algum CEP")
+  // função assincrona que busca informação da API do Cep no formato Json
+  async function handleSearch() {
+    // alert("Click funcionando! valor do input : " + input);
+    
+    if(input === '') {
+      alert("Preencha o CEP no campo!");
+    }
+
+    try {
+      const resposta = await api.get(`${input}/json`);
+      setCep(resposta.data);
+      setInput("");
+      // console.log(resposta.data);
+    } catch {
+      alert("CEP não existe");
+      setInput("");
     }
   }
 
+
   return (
     <div className="container">
-      <h1 className="title">Buscador CEP</h1>
+    <h1 className="title">Buscador CEP</h1>
 
-      <div className="containerInput">
-        <input
-        type="text"
-        placeholder="Digite seu CEP..."
-        value={input}
-        onChange={(e) => setInput(e.target.value) }
-        />
+    <div className="containerInput">
+      <input
+      type="text"
+      placeholder="Digite seu CEP..."
+      value={input}
+      onChange={(e) => setInput(e.target.value) }
+      />
 
-        <button className="buttonSearch" onClick={handleSearch}>
-          <FiSearch size={25} color="#fff"/>
-        </button>
-      </div>
-
-      <main className='main'>
-        <h2>CEP: 99999-999</h2>
-        <span>Rua Teste Alguma Coisa</span>
-        <span>Algum Complemento</span>
-        <span>Jardim Alguma Coisa</span>
-        <span>Cidade - UF</span>
-      </main>
+      <button className="buttonSearch" onClick={handleSearch}>
+        <FiSearch size={25} color="#fff"/>
+      </button>
     </div>
+        
+        {/* reinderização condicional para apresentação do quadro branco na aplicação */}
+        {Object.keys(cep).length > 0 && (
+
+            <main className="main">
+                <h2>CEP: {cep.cep}</h2>
+
+                <span>{cep.logradouro}</span>
+                <span>{cep.bairro}</span>
+                <span>{cep.localidade} - {cep.uf}</span>
+            </main>
+
+        )}
+        
+        </div>
+
   );
 }
 
