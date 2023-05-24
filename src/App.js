@@ -1,4 +1,4 @@
-import {} from 'react-icons/fi'
+import { FiSearch } from 'react-icons/fi'
 
 function App() {
   return (
@@ -12,9 +12,17 @@ function App() {
         />
 
         <button className="buttonSearch">
-          Buscar
+          <FiSearch size={25} color="#fff"/>
         </button>
       </div>
+
+      <main className='main'>
+        <h2>CEP: 99999-999</h2>
+        <span>Rua Teste Alguma Coisa</span>
+        <span>Algum Complemento</span>
+        <span>Jardim Alguma Coisa</span>
+        <span>Cidade - UF</span>
+      </main>
     </div>
   );
 }
