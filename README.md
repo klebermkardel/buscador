@@ -11,8 +11,11 @@ Este é um projeto de busca de CEP desenvolvido em React. Ele utiliza a API de C
 
 ## Tecnologias utilizadas
 
+- HTML
+- CSS
+- JavaScript
 - React
-- API de CEP
+- [API de CEP](https://viacep.com.br/.
 
 ## Como executar o projeto
 
