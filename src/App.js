@@ -7,7 +7,9 @@ function App() {
   const [input, setInput] = useState('')
 
   function handleSearch() {
-    alert("VALOR DO INPUT " + input)
+    if(input === ''){
+      alert("Preencha algum CEP")
+    }
   }
 
   return (
